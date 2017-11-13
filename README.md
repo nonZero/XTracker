@@ -9,3 +9,19 @@
 
         pip install -r requirements.txt
 
+* Create tables:
+
+        m migrate
+
+* Create some sample data:
+
+        m create_expenses 100
+
+
+* Run your server:
+
+        m runserver
+
+* Enjoy: http://localhost:8000/
+
+
