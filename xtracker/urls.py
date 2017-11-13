@@ -52,5 +52,5 @@ urlpatterns = [
 
     # url(r'^hello/(udi)/$', hello),
     # url(r'^hello/(yaniv)/$', hello),
-    # url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls),
 ]
