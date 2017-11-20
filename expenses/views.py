@@ -1,4 +1,3 @@
-from django import forms
 from django.shortcuts import render, redirect
 
 from expenses.forms import ExpenseForm
@@ -21,18 +20,10 @@ def detail(request, id):
     return render(request, "expenses/detail.html", d)
 
 
-
 def create(request):
     if request.method == "POST":
         form = ExpenseForm(request.POST)
         if form.is_valid():
-            # assert False, form.cleaned_data
-            # o = Expense()
-            # o.title = request.POST['title']
-            # o.amount = request.POST['amount']
-            # o.date = request.POST['date']
-            # o.description = request.POST['description']
-            # o.save()
             o = form.save()
             return redirect("expenses:detail", id=o.id)
     else:
