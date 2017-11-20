@@ -1,0 +1,16 @@
+<h1>My Expenses</h1>
+
+<ul>
+    <li style="color:purple">Foo: {{ foo }}</li>
+    <li>Bar: {{ bar }}</li>
+    <li>Baz: {{ baz }}</li>
+    <li>Baz: {{ baz.0 }}</li>
+
+    {% for x in baz %}
+        <li>[{{ forloop.counter }}] {{ x }}</li>
+    {% endfor %}
+
+
+
+
+</ul>
