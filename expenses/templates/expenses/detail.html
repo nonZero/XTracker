@@ -1,0 +1,14 @@
+<h1>Expense #{{ object.id }}</h1>
+
+<ul>
+    <li><b>{{ object.title }}</b></li>
+    <li>Date: {{ object.date }}</li>
+    <li>Amount: ${{ object.amount }}</li>
+    <li>Description: <br/>
+        {{ object.description|linebreaks }}
+    </li>
+</ul>
+
+<a href="{% url "expenses:list" %}">Back To My Expenses</a>
+
+

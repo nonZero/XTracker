@@ -24,4 +24,9 @@
 
 * Enjoy: http://localhost:8000/
 
+# Tips
 
+* Linux/Mac: add to your `.bashrc` / `.bash_profile`:
+
+    alias m='python manage.py'
+    alias sp='python manage.py shell_plus'
