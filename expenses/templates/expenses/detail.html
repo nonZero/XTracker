@@ -21,6 +21,9 @@
             {{ c.content|linebreaks }}
         </li>
     {% endfor %}
+    <li>
+        <a href="{% url "expenses:create_comment" object.id %}">Add Comment...</a>
+    </li>
 
 </ul>
 

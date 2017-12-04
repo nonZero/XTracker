@@ -3,6 +3,7 @@ from django.db import models
 
 # class Tag(models.Model):
 #     name = models.CharField(max_length=100)
+from django.urls.base import reverse
 
 
 class Expense(models.Model):
@@ -15,6 +16,10 @@ class Expense(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("expenses:detail", args=(self.id,))
+
 
 
 class Comment(models.Model):

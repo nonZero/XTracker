@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.http.response import HttpResponse, Http404
+from django.shortcuts import render, redirect, get_object_or_404
 
-from expenses.forms import ExpenseForm
+from expenses.forms import ExpenseForm, CommentForm
 from expenses.models import Expense
 
 
@@ -13,7 +14,11 @@ def home(request):
 
 
 def detail(request, id):
-    o = Expense.objects.get(id=id)
+    o = get_object_or_404(Expense, id=id)
+    # try:
+    #     o = Expense.objects.get(id=id)
+    # except Expense.DoesNotExist:
+    #     raise Http404("go away!")
     d = {
         'object': o,
     }
@@ -34,3 +39,23 @@ def create(request):
         'form': form,
     }
     return render(request, "expenses/form.html", d)
+
+
+def create_comment(request, id):
+    o = get_object_or_404(Expense, id=id)
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        form.instance.expense = o
+        if form.is_valid():
+            c = form.save()
+            return redirect(o)
+    else:
+        # method = GET
+        form = CommentForm()
+
+    d = {
+        'form': form,
+    }
+    return render(request, "expenses/comment_form.html", d)
+
+
