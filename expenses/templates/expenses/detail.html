@@ -1,3 +1,4 @@
+{% load humanize %}
 <h1>Expense #{{ object.id }}</h1>
 
 <ul>
@@ -8,6 +9,21 @@
         {{ object.description|linebreaks }}
     </li>
 </ul>
+
+<h2>Comments</h2>
+
+<ul>
+    {% for c in object.comments.all %}
+        <li>
+            <b>[#{{ c.id }}]
+                <span title="{{ c.created_at }}">{{ c.created_at|naturaltime }}</span>
+            </b>:
+            {{ c.content|linebreaks }}
+        </li>
+    {% endfor %}
+
+</ul>
+
 
 <a href="{% url "expenses:list" %}">Back To My Expenses</a>
 
