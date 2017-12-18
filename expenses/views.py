@@ -1,4 +1,4 @@
-from django.http.response import HttpResponse, Http404
+from django.http import JsonResponse, HttpResponseForbidden
 from django.shortcuts import render, redirect, get_object_or_404
 
 from expenses.forms import ExpenseForm, CommentForm
@@ -13,14 +13,39 @@ def home(request):
     return render(request, "expenses/home.html", d)
 
 
+def home_json(request):
+    qs = Expense.objects.order_by('-date')
+    data = {
+        'expenses': [
+            {
+                'id': o.id,
+                'title': o.title
+            }
+            for o in qs]
+    }
+    return JsonResponse(data)
+
+
 def detail(request, id):
     o = get_object_or_404(Expense, id=id)
-    # try:
-    #     o = Expense.objects.get(id=id)
-    # except Expense.DoesNotExist:
-    #     raise Http404("go away!")
+
+    if request.method == "POST":
+        import time
+        time.sleep(3)
+        form = CommentForm(request.POST)
+        form.instance.expense = o
+        if form.is_valid():
+            c = form.save()
+            return render(request, "expenses/_comment.html", {
+                'c': c,
+            })
+        return HttpResponseForbidden(
+            form.errors.as_json(),
+            content_type='application/json')
+
     d = {
         'object': o,
+        'form': CommentForm(),
     }
     return render(request, "expenses/detail.html", d)
 
@@ -41,21 +66,19 @@ def create(request):
     return render(request, "expenses/form.html", d)
 
 
-def create_comment(request, id):
-    o = get_object_or_404(Expense, id=id)
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        form.instance.expense = o
-        if form.is_valid():
-            c = form.save()
-            return redirect(o)
-    else:
-        # method = GET
-        form = CommentForm()
-
-    d = {
-        'form': form,
-    }
-    return render(request, "expenses/comment_form.html", d)
-
-
+# def create_comment(request, id):
+#     o = get_object_or_404(Expense, id=id)
+#     if request.method == "POST":
+#         form = CommentForm(request.POST)
+#         form.instance.expense = o
+#         if form.is_valid():
+#             c = form.save()
+#             return redirect(o)
+#     else:
+#         # method = GET
+#         form = CommentForm()
+#
+#     d = {
+#         'form': form,
+#     }
+#     return render(request, "expenses/comment_form.html", d)

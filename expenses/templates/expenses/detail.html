@@ -1,4 +1,4 @@
-{% load humanize %}
+{% load humanize staticfiles %}
 <h1>Expense #{{ object.id }}</h1>
 
 <ul>
@@ -12,22 +12,27 @@
 
 <h2>Comments</h2>
 
-<ul>
-    {% for c in object.comments.all %}
-        <li>
-            <b>[#{{ c.id }}]
-                <span title="{{ c.created_at }}">{{ c.created_at|naturaltime }}</span>
-            </b>:
-            {{ c.content|linebreaks }}
-        </li>
-    {% endfor %}
+<ul id="comments">
     <li>
-        <a href="{% url "expenses:create_comment" object.id %}">Add Comment...</a>
+{#        <form id="comment-form" action="{% url "expenses:create_comment" object.id %}" method="post" novalidate>#}
+        <form id="comment-form" method="post">
+            {% csrf_token %}
+
+            {{ form.as_ul }}
+
+            <button id="send-form">Add Comment</button>
+        </form>
     </li>
+    {% for c in object.comments_by_date %}
+        {% include "expenses/_comment.html" %}
+    {% endfor %}
 
 </ul>
 
-
 <a href="{% url "expenses:list" %}">Back To My Expenses</a>
+
+<script src="{% static "vendor/jquery-3.2.1.js" %}"></script>
+<script src="{% static "js/csrf.js" %}"></script>
+<script src="{% static "js/comment.js" %}"></script>
 
 
