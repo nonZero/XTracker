@@ -21,7 +21,7 @@ class Expense(models.Model):
 
 
 class Comment(models.Model):
-    expense = models.ForeignKey(Expense, related_name="comments")
+    expense = models.ForeignKey(Expense, on_delete=models.SET_NULL, related_name="comments", null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 
