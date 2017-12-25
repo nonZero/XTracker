@@ -14,7 +14,6 @@
 
 <ul id="comments">
     <li>
-{#        <form id="comment-form" action="{% url "expenses:create_comment" object.id %}" method="post" novalidate>#}
         <form id="comment-form" method="post">
             {% csrf_token %}
 
@@ -29,7 +28,7 @@
 
 </ul>
 
-<a href="{% url "expenses:list" %}">Back To My Expenses</a>
+<a href="{% url 'expenses:list' %}">Back To My Expenses</a>
 
 <script src="{% static "vendor/jquery-3.2.1.js" %}"></script>
 <script src="{% static "js/csrf.js" %}"></script>

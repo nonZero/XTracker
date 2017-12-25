@@ -1,7 +1,7 @@
 <h1>My Expenses</h1>
 
 <p>
-    <a href="{% url "expenses:create" %}">Add...</a>
+    <a href="{% url 'expenses:create' %}">Add...</a>
 </p>
 
 <table border="1" width="100%">
@@ -17,7 +17,7 @@
             <td>{{ object.date }}</td>
             <td>${{ object.amount }}</td>
             <td>
-                <a href="{% url "expenses:detail" object.id %}">{{ object.title }}</a>
+                <a href="{% url 'expenses:detail' object.id %}">{{ object.title }}</a>
             </td>
         </tr>
     {% endfor %}
