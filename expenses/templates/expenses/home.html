@@ -1,25 +1,26 @@
 {% extends "base.html" %}
+{% load i18n %}
 
 {% block page_title %}
-    Home
+    {% trans "Home" %}
 {% endblock %}
 
 {% block content %}
 
     <p>
         <a class="btn btn-primary float-right"
-           href="{% url 'expenses:create' %}">Add...</a>
+           href="{% url 'expenses:create' %}">{% trans "Add" %}...</a>
     </p>
 
-    <h1>My Expenses</h1>
+    <h1>{% trans "My Expenses" %}</h1>
 
 
     <table class="table table-bordered table-hover" border="1" width="100%">
         <tr>
             <th>#</th>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Title</th>
+            <th>{% trans "Date" %}</th>
+            <th>{% trans "Amount" %}</th>
+            <th>{% trans "Title" %}</th>
         </tr>
         {% for object in objects %}
             <tr>

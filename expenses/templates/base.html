@@ -1,9 +1,19 @@
-{% load staticfiles %}
+{% load staticfiles i18n %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+
 <html>
 <head>
     <title>{% block page_title %}TITLE{% endblock %} - XTracker!!!</title>
+    {% if LANGUAGE_BIDI %}
+        <link rel="stylesheet"
+              href="{% static "vendor/bootstrap/css/bootstrap-rtl.css" %}"/>
     <link rel="stylesheet"
-          href="{% static "vendor/bootstrap/css/bootstrap.css" %}"/>
+          href="{% static "style.css" %}"/>
+    {% else %}
+        <link rel="stylesheet"
+              href="{% static "vendor/bootstrap/css/bootstrap.css" %}"/>
+    {% endif %}
+
 
 </head>
 </html>

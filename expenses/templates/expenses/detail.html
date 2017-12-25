@@ -1,24 +1,24 @@
 {% extends "base.html" %}
-{% load humanize staticfiles %}
+{% load humanize staticfiles i18n %}
 
 {% block page_title %}
-    Home
+    {% trans "Expense" %} #{{ object.id }}
 {% endblock %}
 
 {% block content %}
 
-    <h1>Expense #{{ object.id }}</h1>
+    <h1>{% trans "Expense" %} #{{ object.id }}</h1>
 
     <ul>
         <li><b>{{ object.title }}</b></li>
-        <li>Date: {{ object.date }}</li>
-        <li>Amount: ${{ object.amount }}</li>
-        <li>Description: <br/>
+        <li>{% trans "Date" %}: {{ object.date }}</li>
+        <li>{% trans "Amount" %}: ${{ object.amount }}</li>
+        <li>{% trans "Description" %}: <br/>
             {{ object.description|linebreaks }}
         </li>
     </ul>
 
-    <h2>Comments</h2>
+    <h2>{% trans "Comments" %}</h2>
 
     <ul id="comments" class="list-group">
         <li class="list-group-item">

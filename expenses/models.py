@@ -1,12 +1,17 @@
 from django.db import models
 from django.urls.base import reverse
+from django.utils.translation import ugettext_lazy as _
 
 
 class Expense(models.Model):
-    date = models.DateField()
-    amount = models.DecimalField(max_digits=12, decimal_places=2)
-    title = models.CharField(max_length=300)
-    description = models.TextField(blank=True)
+    date = models.DateField(_("date"))
+    amount = models.DecimalField(_("amount"), max_digits=12, decimal_places=2)
+    title = models.CharField(_("title"), max_length=300)
+    description = models.TextField(_("description"), blank=True)
+
+    class Meta:
+        verbose_name = _("expense")
+        verbose_name_plural = _("expenses")
 
     # tags = models.ManyToManyField(Tag, blank=True, related_name="expenses")
 
@@ -21,11 +26,15 @@ class Expense(models.Model):
 
 
 class Comment(models.Model):
-    expense = models.ForeignKey(Expense, on_delete=models.SET_NULL, related_name="comments", null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    content = models.TextField()
+    expense = models.ForeignKey(Expense, on_delete=models.SET_NULL,
+                                related_name="comments", null=True, blank=True,
+                                verbose_name=_("expense"))
+    created_at = models.DateTimeField(_("created at"),auto_now_add=True)
+    content = models.TextField(_("content"))
 
     class Meta:  # holds some advanced setting for this model
+        verbose_name = _("comment")
+        verbose_name_plural = _("comments")
         ordering = (
             '-created_at',
         )
