@@ -1,37 +1,47 @@
+{% extends "base.html" %}
 {% load humanize staticfiles %}
-<h1>Expense #{{ object.id }}</h1>
 
-<ul>
-    <li><b>{{ object.title }}</b></li>
-    <li>Date: {{ object.date }}</li>
-    <li>Amount: ${{ object.amount }}</li>
-    <li>Description: <br/>
-        {{ object.description|linebreaks }}
-    </li>
-</ul>
+{% block page_title %}
+    Home
+{% endblock %}
 
-<h2>Comments</h2>
+{% block content %}
 
-<ul id="comments">
-    <li>
-        <form id="comment-form" method="post">
-            {% csrf_token %}
+    <h1>Expense #{{ object.id }}</h1>
 
-            {{ form.as_ul }}
+    <ul>
+        <li><b>{{ object.title }}</b></li>
+        <li>Date: {{ object.date }}</li>
+        <li>Amount: ${{ object.amount }}</li>
+        <li>Description: <br/>
+            {{ object.description|linebreaks }}
+        </li>
+    </ul>
 
-            <button id="send-form">Add Comment</button>
-        </form>
-    </li>
-    {% for c in object.comments_by_date %}
-        {% include "expenses/_comment.html" %}
-    {% endfor %}
+    <h2>Comments</h2>
 
-</ul>
+    <ul id="comments" class="list-group">
+        <li class="list-group-item">
+            <form id="comment-form" method="post">
+                {% csrf_token %}
 
-<a href="{% url 'expenses:list' %}">Back To My Expenses</a>
+                {{ form}}
 
-<script src="{% static "vendor/jquery-3.2.1.js" %}"></script>
-<script src="{% static "js/csrf.js" %}"></script>
-<script src="{% static "js/comment.js" %}"></script>
+                <button id="send-form">Add Comment</button>
+            </form>
+        </li>
+        {% for c in object.comments_by_date %}
+            {% include "expenses/_comment.html" %}
+        {% endfor %}
 
+    </ul>
 
+    <a href="{% url 'expenses:list' %}">Back To My Expenses</a>
+
+{% endblock %}
+
+{% block page_scripts %}
+    <script src="{% static "vendor/jquery-3.2.1.js" %}"></script>
+    <script src="{% static "js/csrf.js" %}"></script>
+    <script src="{% static "js/comment.js" %}"></script>
+{% endblock %}

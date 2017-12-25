@@ -1,23 +1,15 @@
-<form method="post" novalidate>
-    {% csrf_token %}
+{% extends "base.html" %}
 
-    {{ form.as_ul }}
+{% block page_title %}
+    Add New Expense
+{% endblock %}
 
-{#    <li>#}
-{#        Date:#}
-{#        <input type="text" name="date">#}
-{#    </li>#}
-{#    <li>#}
-{#        Amount:#}
-{#        <input type="text" name="amount">#}
-{#    </li>#}
-{#    <li>#}
-{#        Title:#}
-{#        <input type="text" name="title">#}
-{#    </li>#}
-{#    <li>#}
-{#        Description:#}
-{#        <textarea name="description"></textarea>#}
-{#    </li>#}
-    <button>Add</button>
-</form>
+{% block content %}
+    <form method="post" novalidate>
+        {% csrf_token %}
+
+        {{ form.as_ul }}
+
+        <button class="btn btn-primary">Add</button>
+    </form>
+{% endblock %}
