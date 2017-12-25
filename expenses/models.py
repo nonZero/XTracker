@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls.base import reverse
 from django.utils.translation import ugettext_lazy as _
+from django_extensions.db.fields.json import JSONField
 
 
 class Expense(models.Model):
@@ -29,7 +30,7 @@ class Comment(models.Model):
     expense = models.ForeignKey(Expense, on_delete=models.SET_NULL,
                                 related_name="comments", null=True, blank=True,
                                 verbose_name=_("expense"))
-    created_at = models.DateTimeField(_("created at"),auto_now_add=True)
+    created_at = models.DateTimeField(_("created at"), auto_now_add=True)
     content = models.TextField(_("content"))
 
     class Meta:  # holds some advanced setting for this model
@@ -38,3 +39,5 @@ class Comment(models.Model):
         ordering = (
             '-created_at',
         )
+
+
